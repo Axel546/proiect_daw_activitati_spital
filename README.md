@@ -1,55 +1,81 @@
 # Managementul Activităților Spitalului  
 ### Proiect Dezvoltare Aplicații Web – PHP & MySQL
 
-## Descriere Generală
+Aplicație web dezvoltată în PHP și MySQL pentru gestionarea activităților unui spital, organizate pe departamente, cu autentificare, control al accesului pe roluri, rapoarte și funcționalități administrative.
 
-Această aplicație web reprezintă un sistem de management al activităților unui spital, dezvoltat în PHP și MySQL, conform cerințelor cursului de **Dezvoltare Aplicații Web**.
+Proiect realizat ca aplicație universitară pentru cursul de **Dezvoltare Aplicații Web**.
 
-Aplicația permite gestionarea activităților spitalului pe departamente, cu autentificare, control al accesului pe bază de roluri și funcționalități administrative. Proiectul este dezvoltat local folosind **XAMPP** și este destinat rulării pe **InfinityFree (shared hosting)**.
+---
+
+## Contextul Proiectului
+
+Aplicația simulează un sistem intern de management al activităților dintr-un spital:
+- activități medicale și administrative
+- utilizatori cu roluri diferite
+- departamente medicale
+- rapoarte și statistici
+- integrare de date externe
+
+Aplicația este dezvoltată local folosind **XAMPP** și este destinată rulării pe un hosting de tip **shared hosting (InfinityFree)**.
 
 ---
 
 ## Tehnologii Utilizate
 
-- **Backend:** PHP 8.x  
-- **Bază de date:** MySQL  
-- **Server local:** XAMPP (Apache + MySQL)  
-- **Frontend:** HTML, CSS  
-- **Bibliotecă externă:** FPDF (export PDF)
+- **Backend:** PHP 8+
+- **Bază de date:** MySQL (PDO, prepared statements)
+- **Server local:** Apache (XAMPP)
+- **Frontend:** HTML, CSS, Bootstrap 5
+- **Securitate:** CSRF protection, hashing parole, validare server-side
+- **Rapoarte:** PDF (FPDF), CSV
+- **Hosting:** InfinityFree
 
 ---
 
-## Funcționalități Principale
-
-- Autentificare utilizatori (înregistrare, login, logout)
-- Control acces bazat pe roluri:
-  - **Admin** – acces complet
-  - **Staff / Nurse** – gestionare activități proprii
-  - **Doctor** – acces doar pentru vizualizare
-- Operații CRUD complete pentru activități
-- Asocierea activităților cu departamente
-- Filtrare activități (departament, status, perioadă)
-- Protecție CSRF pe toate formularele
-- Pattern PRG (Post–Redirect–Get)
-- Analitică website (vizualizări pagini și vizitatori)
-- Formular de contact cu protecție anti-bot
-- Integrare date externe (feed RSS WHO – alerte de sănătate)
-- Generare rapoarte:
-  - **PDF** (FPDF)
-  - **CSV** (compatibil Excel)
-
----
-
-## Structura Aplicației
+## Structura Proiectului
 proiect_daw_activitati_spital/
-├── public/ # Pagini accesibile public (entry points)
-├── src/ # Logică aplicație și funcții helper
-├── views/ # Layout reutilizabil
-├── config/ # Configurare aplicație
-├── database/ # Schema și date de test
-├── libs/ # Biblioteci externe (FPDF)
+├── index.php
+├── login.php
+├── register.php
+├── logout.php
+├── contact.php
+├── external.php
+├── unauthorized.php
+├── activities/
+│ ├── index.php
+│ ├── create.php
+│ ├── edit.php
+│ ├── show.php
+│ └── delete.php
+├── reports/
+│ ├── activities.php
+│ ├── activities_pdf.php
+│ └── activities_csv.php
+├── admin/
+│ ├── analytics.php
+│ └── messages.php
+├── app/
+│ ├── src/
+│ │ ├── db.php
+│ │ ├── helpers.php
+│ │ ├── auth.php
+│ │ ├── csrf.php
+│ │ ├── analytics.php
+│ │ ├── external_feed.php
+│ │ └── reports_helper.php
+│ ├── views/
+│ │ └── layout.php
+│ ├── config/
+│ │ ├── local.php.example
+│ │ └── local.php (necomitat)
+│ ├── libs/
+│ │ ├── fpdf.php
+│ │ └── font/
+│ └── database/
+│ ├── schema.sql
+│ └── seed.sql
+├── .gitignore
 └── README.md
-
 
 ---
 
@@ -59,53 +85,118 @@ proiect_daw_activitati_spital/
 - XAMPP instalat
 - Apache și MySQL pornite
 
-### Pași de Configurare
-1. Clonează repository-ul în directorul `htdocs`
-2. Creează baza de date importând:
-   - `database/schema.sql`
-   - `database/seed.sql`
-3. Copiază fișierul de configurare:
-config/local.php.example → config/local.php
-4. Completează datele de conectare la baza de date în `config/local.php`
-5. Accesează aplicația în browser:
-http://localhost/proiect_daw_activitati_spital/public/
+### Pași
+
+1. Copiază proiectul în:
+C:\xampp\htdocs\proiect_daw_activitati_spital
+
+2. Creează baza de date:
+- Deschide `http://localhost/phpmyadmin`
+- Importă `app/database/schema.sql`
+- Importă `app/database/seed.sql` (date de test)
+
+3. Configurează conexiunea la DB:
+- Copiază `app/config/local.php.example` → `app/config/local.php`
+- Editează credențialele MySQL
+
+4. Accesează aplicația:
+http://localhost/proiect_daw_activitati_spital/
 
 ---
 
-## Utilizatori de Test (Seed)
+## Hosting pe InfinityFree
 
-| Rol    | Email                     | Parolă      |
-|--------|---------------------------|-------------|
-| Admin  | admin@hospital.local      | password123 |
-| Staff  | staff.doe@hospital.local  | password123 |
-| Doctor | dr.smith@hospital.local   | password123 |
+- Fișierele publice sunt plasate direct în `htdocs/`
+- Codul intern este izolat în folderul `app/`
+- URL final **fără `/public`**
+
+Exemplu:
+https://management-spital-daw.infinityfreeapp.com/
+
+---
+
+## Funcționalități Implementate
+
+### Autentificare și Utilizatori
+- Înregistrare utilizatori
+- Autentificare / Deconectare
+- Parole criptate (`password_hash`)
+- Rol implicit: **staff**
+
+### Roluri și Permisiuni
+- **Admin** – acces complet
+- **Staff / Nurse** – CRUD doar pentru activitățile proprii
+- **Doctor** – acces doar la citire
+
+### Management Activități
+- Creare, editare, ștergere activități
+- Asociere cu departamente
+- Statusuri: Planificat, În progres, Completat, Anulat
+- Filtrare după departament, status și dată
+
+### Rapoarte
+- Export PDF (FPDF)
+- Export CSV
+- Previzualizare activități
+- Funcționează fără Composer
+
+### Analitică Website
+- Tracking vizualizări pagini
+- Vizitatori unici (hash IP)
+- Dashboard admin
+- Notă: pe localhost vizitatorii unici pot fi 1 (comportament normal)
+
+### Formular de Contact
+- CSRF protection
+- Honeypot anti-bot
+- Rate limiting
+- Salvare mesaje în DB
+- Panou admin pentru mesaje
+
+### Integrare Date Externe
+- Știri și alerte de sănătate (RSS WHO)
+- Cache în baza de date
+- Refresh manual pentru admin
+
+### Interfață
+- Bootstrap 5
+- Responsive (desktop & mobile)
+- Tabele cu scroll pe mobil
+- Layout unitar
+
+---
+
+## Conturi Demo (seed.sql)
+
+- **Admin:**  
+  `admin@hospital.local` / `password123`
+
+- **Staff:**  
+  `staff.doe@hospital.local` / `password123`
+
+- **Doctor:**  
+  `dr.smith@hospital.local` / `password123`
 
 ---
 
 ## Securitate
 
-- Interogări securizate prin **PDO Prepared Statements**
-- Protecție **CSRF** pe toate formularele
-- Securizare output HTML pentru prevenirea **XSS**
-- Fișierul `config/local.php` nu este comis în Git (conține date sensibile)
+- PDO + prepared statements
+- Protecție CSRF
+- Escapare output HTML
+- Separare cod public / privat
+- Fără date sensibile în GitHub
 
 ---
 
-## Note Tehnice
+## Observații Finale
 
-- Exportul PDF nu utilizează diacritice din cauza limitărilor de codare ale bibliotecii FPDF
-- Pe mediul local (localhost), metrica „vizitatori unici” poate rămâne 1 – comportament normal pentru localhost
-- Aplicația simulează un sistem intern de management al activităților dintr-un spital
-
----
-
-## Deployment
-
-Aplicația este compatibilă cu **InfinityFree**, fără a necesita Composer sau extensii suplimentare.  
-Este suficientă încărcarea fișierelor și configurarea bazei de date MySQL.
+- Proiectul este complet funcțional
+- Structură profesională, compatibilă cu hosting shared
+- Ușor de extins (panou admin utilizatori, notificări etc.)
 
 ---
 
-## Autor
+**Autor:**  
+Proiect realizat ca temă pentru cursul de Dezvoltare Aplicații Web de Zob Alexandru Mihai
 
-Proiect realizat pentru cursul **Dezvoltare Aplicații Web** - Zob Alexandru-Mihai
