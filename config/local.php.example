@@ -1,0 +1,15 @@
+<?php
+return [
+    'db' => [
+        'host' => 'localhost',
+        'dbname' => 'proiect_test',
+        'username' => 'root',
+        'password' => ''
+    ],
+    'analytics' => [
+        'ip_salt' => 'CHANGE_THIS_TO_A_RANDOM_STRING_FOR_SECURITY'
+    ],
+    'contact' => [
+        'admin_email' => 'admin@hospital.local'  // Email address to receive contact form messages
+    ]
+];
