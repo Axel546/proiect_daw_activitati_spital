@@ -1,6 +1,7 @@
 -- Create database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS proiect_test;
-USE proiect_test;
+-- CREATE DATABASE IF NOT EXISTS proiect_test;
+-- USE proiect_test;
+-- decomenteaza aceste 2 linii daca lucrezi local, lasa comentate pentru hosting (InfinityFree)
 
 -- Roles table: defines user roles in the system
 CREATE TABLE IF NOT EXISTS roles (
