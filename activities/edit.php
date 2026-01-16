@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../src/db.php';
-require_once __DIR__ . '/../../src/helpers.php';
-require_once __DIR__ . '/../../src/auth.php';
-require_once __DIR__ . '/../../src/csrf.php';
+require_once __DIR__ . '/../app/src/db.php';
+require_once __DIR__ . '/../app/src/helpers.php';
+require_once __DIR__ . '/../app/src/auth.php';
+require_once __DIR__ . '/../app/src/csrf.php';
 
 requireLogin();
 
@@ -174,5 +174,5 @@ ob_start();
 </div>
 <?php
 $content = ob_get_clean();
-include __DIR__ . '/../../views/layout.php';
+include __DIR__ . '/../app/views/layout.php';
 ?>

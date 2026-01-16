@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../../src/db.php';
-require_once __DIR__ . '/../../src/helpers.php';
-require_once __DIR__ . '/../../src/auth.php';
+require_once __DIR__ . '/../app/src/db.php';
+require_once __DIR__ . '/../app/src/helpers.php';
+require_once __DIR__ . '/../app/src/auth.php';
 
 requireLogin();
 
@@ -126,7 +126,7 @@ ob_start();
         <p>Odată ștearsă, această activitate nu poate fi recuperată.</p>
         <form method="POST" action="delete.php" onsubmit="return confirm('Ești sigur că vrei să ștergi această activitate? Această acțiune nu poate fi anulată.');">
             <?php
-            require_once __DIR__ . '/../../src/csrf.php';
+            require_once __DIR__ . '/../app/src/csrf.php';
             echo csrfField();
             ?>
             <input type="hidden" name="id" value="<?php echo $activity['id']; ?>">
@@ -202,5 +202,5 @@ ob_start();
 </style>
 <?php
 $content = ob_get_clean();
-include __DIR__ . '/../../views/layout.php';
+include __DIR__ . '/../app/views/layout.php';
 ?>

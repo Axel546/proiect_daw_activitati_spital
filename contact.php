@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../src/db.php';
-require_once __DIR__ . '/../src/helpers.php';
-require_once __DIR__ . '/../src/auth.php';
-require_once __DIR__ . '/../src/csrf.php';
-require_once __DIR__ . '/../src/analytics.php';
+require_once __DIR__ . '/app/src/db.php';
+require_once __DIR__ . '/app/src/helpers.php';
+require_once __DIR__ . '/app/src/auth.php';
+require_once __DIR__ . '/app/src/csrf.php';
+require_once __DIR__ . '/app/src/analytics.php';
 
 $pdo = getDbConnection();
 $isLoggedIn = isLoggedIn();
@@ -13,7 +13,7 @@ $errors = [];
 $success = null;
 
 // Obtine config
-$configPath = __DIR__ . '/../config/local.php';
+$configPath = __DIR__ . '/app/config/local.php';
 $config = file_exists($configPath) ? require $configPath : [];
 $adminEmail = $config['contact']['admin_email'] ?? 'admin@hospital.local';
 $analyticsConfig = $config['analytics'] ?? [];
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <?php
         $content = ob_get_clean();
-        include __DIR__ . '/../views/layout.php';
+        include __DIR__ . '/app/views/layout.php';
         exit;
     }
     
@@ -216,5 +216,5 @@ ob_start();
 <?php endif; ?>
 <?php
 $content = ob_get_clean();
-include __DIR__ . '/../views/layout.php';
+include __DIR__ . '/app/views/layout.php';
 ?>

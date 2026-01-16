@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../src/db.php';
-require_once __DIR__ . '/../../src/helpers.php';
-require_once __DIR__ . '/../../src/auth.php';
-require_once __DIR__ . '/../../src/reports_helper.php';
+require_once __DIR__ . '/../app/src/db.php';
+require_once __DIR__ . '/../app/src/helpers.php';
+require_once __DIR__ . '/../app/src/auth.php';
+require_once __DIR__ . '/../app/src/reports_helper.php';
 
 requireLogin();
 

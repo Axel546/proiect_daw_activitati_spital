@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../src/auth.php';
+require_once __DIR__ . '/app/src/auth.php';
 
 $pageTitle = 'Acces Neautorizat';
 ob_start();
@@ -18,5 +18,5 @@ ob_start();
 </div>
 <?php
 $content = ob_get_clean();
-include __DIR__ . '/../views/layout.php';
+include __DIR__ . '/app/views/layout.php';
 ?>
