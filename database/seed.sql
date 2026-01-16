@@ -1,4 +1,5 @@
-USE proiect_test;
+-- USE proiect_test;
+-- decomenteaza linia de mai sus daca lucrezi local, lasa comentat pentru hosting (InfinityFree)
 
 -- Insert roles
 INSERT INTO roles (name, description) VALUES

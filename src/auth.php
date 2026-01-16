@@ -59,8 +59,13 @@ function hasRole($roleName) {
  */
 function requireLogin() {
     if (!isLoggedIn()) {
-        $basePath = '/proiect_daw_activitati_spital/public';
-        header('Location: ' . $basePath . '/login.php');
+        // Determină calea relativă către login.php
+        $currentFile = $_SERVER['PHP_SELF'] ?? '';
+        $relativePath = '';
+        if (strpos($currentFile, '/activities/') !== false || strpos($currentFile, '/reports/') !== false || strpos($currentFile, '/admin/') !== false) {
+            $relativePath = '../';
+        }
+        header('Location: ' . $relativePath . 'login.php');
         exit;
     }
 }
@@ -76,8 +81,13 @@ function requireRole($roleName) {
     $user = getCurrentUser();
     
     if (!$user || !in_array($user['role_name'] ?? '', $roles)) {
-        $basePath = '/proiect_daw_activitati_spital/public';
-        header('Location: ' . $basePath . '/unauthorized.php');
+        // Determină calea relativă către unauthorized.php
+        $currentFile = $_SERVER['PHP_SELF'] ?? '';
+        $relativePath = '';
+        if (strpos($currentFile, '/activities/') !== false || strpos($currentFile, '/reports/') !== false || strpos($currentFile, '/admin/') !== false) {
+            $relativePath = '../';
+        }
+        header('Location: ' . $relativePath . 'unauthorized.php');
         exit;
     }
 }

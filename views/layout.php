@@ -5,9 +5,6 @@ if (!isset($pageTitle)) {
     $pageTitle = 'Managementul Activitatilor Spitalului';
 }
 
-// Cale de baza pentru link-urile de navigare
-$basePath = '/proiect_daw_activitati_spital/public';
-
 // Logheaza vizualizarea paginii pentru analitica
 require_once __DIR__ . '/../src/analytics.php';
 logPageView();
@@ -15,6 +12,13 @@ logPageView();
 require_once __DIR__ . '/../src/auth.php';
 $isLoggedIn = isLoggedIn();
 $currentUser = getCurrentUser();
+
+// Determină calea relativă către public/ bazat pe locația fișierului curent
+$currentFile = $_SERVER['PHP_SELF'] ?? '';
+$relativePath = '';
+if (strpos($currentFile, '/activities/') !== false || strpos($currentFile, '/reports/') !== false || strpos($currentFile, '/admin/') !== false) {
+    $relativePath = '../';
+}
 ?>
 <!DOCTYPE html>
 <html lang="ro">
@@ -181,25 +185,25 @@ $currentUser = getCurrentUser();
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="<?php echo $basePath; ?>/" class="nav-brand">Activități Spital</a>
+            <a href="<?php echo $relativePath; ?>index.php" class="nav-brand">Activități Spital</a>
             <div class="nav-links">
-                <a href="<?php echo $basePath; ?>/">Acasă</a>
-                <a href="<?php echo $basePath; ?>/contact.php">Contact</a>
+                <a href="<?php echo $relativePath; ?>index.php">Acasă</a>
+                <a href="<?php echo $relativePath; ?>contact.php">Contact</a>
                 <?php if ($isLoggedIn): ?>
-                    <a href="<?php echo $basePath; ?>/external.php">WHO news</a>
-                    <a href="<?php echo $basePath; ?>/reports/activities.php">Rapoarte</a>
+                    <a href="<?php echo $relativePath; ?>external.php">WHO news</a>
+                    <a href="<?php echo $relativePath; ?>reports/activities.php">Rapoarte</a>
                     <?php if (hasRole('admin')): ?>
-                        <a href="<?php echo $basePath; ?>/admin/analytics.php">Analytics</a>
-                        <a href="<?php echo $basePath; ?>/admin/messages.php">Mesaje</a>
+                        <a href="<?php echo $relativePath; ?>admin/analytics.php">Analytics</a>
+                        <a href="<?php echo $relativePath; ?>admin/messages.php">Mesaje</a>
                     <?php endif; ?>
                     <span class="user-info">
                         <?php echo h($currentUser['first_name'] ?? ''); ?> <?php echo h($currentUser['last_name'] ?? ''); ?>
                         (<?php echo h($currentUser['role_name'] ?? 'Utilizator'); ?>)
                     </span>
-                    <a href="<?php echo $basePath; ?>/logout.php">Deconectare</a>
+                    <a href="<?php echo $relativePath; ?>logout.php">Deconectare</a>
                 <?php else: ?>
-                    <a href="<?php echo $basePath; ?>/login.php">Autentificare</a>
-                    <a href="<?php echo $basePath; ?>/register.php">Înregistrare</a>
+                    <a href="<?php echo $relativePath; ?>login.php">Autentificare</a>
+                    <a href="<?php echo $relativePath; ?>register.php">Înregistrare</a>
                 <?php endif; ?>
             </div>
         </div>
