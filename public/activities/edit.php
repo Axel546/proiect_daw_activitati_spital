@@ -124,48 +124,52 @@ ob_start();
     <form method="POST">
         <?php echo csrfField(); ?>
         
-        <div class="form-group">
-            <label for="title">Titlu *</label>
-            <input type="text" id="title" name="title" required maxlength="200" 
-                   value="<?php echo h($activity['title']); ?>">
+        <div class="row g-3">
+            <div class="col-12">
+                <label for="title" class="form-label">Titlu *</label>
+                <input type="text" id="title" name="title" required maxlength="200" 
+                       value="<?php echo h($activity['title']); ?>" class="form-control">
+            </div>
+            
+            <div class="col-12">
+                <label for="description" class="form-label">Descriere *</label>
+                <textarea id="description" name="description" required class="form-control"><?php echo h($activity['description']); ?></textarea>
+            </div>
+            
+            <div class="col-12 col-md-6">
+                <label for="department_id" class="form-label">Departament *</label>
+                <select id="department_id" name="department_id" required class="form-select">
+                    <option value="">Selectează un departament</option>
+                    <?php foreach ($departments as $dept): ?>
+                        <option value="<?php echo $dept['id']; ?>" 
+                                <?php echo $activity['department_id'] == $dept['id'] ? 'selected' : ''; ?>>
+                            <?php echo h($dept['name']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            
+            <div class="col-12 col-md-6">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" name="status" class="form-select">
+                    <option value="planned" <?php echo $activity['status'] === 'planned' ? 'selected' : ''; ?>>Planificat</option>
+                    <option value="in_progress" <?php echo $activity['status'] === 'in_progress' ? 'selected' : ''; ?>>În Progres</option>
+                    <option value="completed" <?php echo $activity['status'] === 'completed' ? 'selected' : ''; ?>>Completat</option>
+                    <option value="cancelled" <?php echo $activity['status'] === 'cancelled' ? 'selected' : ''; ?>>Anulat</option>
+                </select>
+            </div>
+            
+            <div class="col-12">
+                <label for="scheduled_date" class="form-label">Data și Ora Programată (Opțional)</label>
+                <input type="datetime-local" id="scheduled_date" name="scheduled_date" 
+                       value="<?php echo h($scheduled_date_formatted); ?>" class="form-control">
+            </div>
         </div>
         
-        <div class="form-group">
-            <label for="description">Descriere *</label>
-            <textarea id="description" name="description" required><?php echo h($activity['description']); ?></textarea>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">Actualizează Activitate</button>
+            <a href="show.php?id=<?php echo $activityId; ?>" class="btn btn-secondary">Anulează</a>
         </div>
-        
-        <div class="form-group">
-            <label for="department_id">Departament *</label>
-            <select id="department_id" name="department_id" required>
-                <option value="">Selectează un departament</option>
-                <?php foreach ($departments as $dept): ?>
-                    <option value="<?php echo $dept['id']; ?>" 
-                            <?php echo $activity['department_id'] == $dept['id'] ? 'selected' : ''; ?>>
-                        <?php echo h($dept['name']); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="status">Status</label>
-            <select id="status" name="status">
-                <option value="planned" <?php echo $activity['status'] === 'planned' ? 'selected' : ''; ?>>Planificat</option>
-                <option value="in_progress" <?php echo $activity['status'] === 'in_progress' ? 'selected' : ''; ?>>În Progres</option>
-                <option value="completed" <?php echo $activity['status'] === 'completed' ? 'selected' : ''; ?>>Completat</option>
-                <option value="cancelled" <?php echo $activity['status'] === 'cancelled' ? 'selected' : ''; ?>>Anulat</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="scheduled_date">Data și Ora Programată (Opțional)</label>
-            <input type="datetime-local" id="scheduled_date" name="scheduled_date" 
-                   value="<?php echo h($scheduled_date_formatted); ?>">
-        </div>
-        
-        <button type="submit">Actualizează Activitate</button>
-        <a href="show.php?id=<?php echo $activityId; ?>" class="btn btn-secondary" style="margin-left: 10px;">Anulează</a>
     </form>
 </div>
 <?php

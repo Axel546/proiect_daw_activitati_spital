@@ -108,8 +108,10 @@ ob_start();
 <div style="margin-bottom: 20px; padding: 15px; background: #e3f2fd; border-radius: 6px; border-left: 4px solid #1976d2;">
     <strong>Opțiuni Export:</strong>
     <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
-        <a href="<?php echo h($pdfUrl); ?>" class="btn" target="_blank">📄 Exportă ca PDF</a>
-        <a href="activities_csv.php?<?php echo h($exportParams); ?>" class="btn btn-secondary" target="_blank">📋 Exportă ca CSV</a>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="<?php echo h($pdfUrl); ?>" class="btn btn-primary" target="_blank">📄 Exportă ca PDF</a>
+            <a href="activities_csv.php?<?php echo h($exportParams); ?>" class="btn btn-secondary" target="_blank">📋 Exportă ca CSV</a>
+        </div>
     </div>
     <p style="margin-top: 10px; font-size: 13px; color: #666;">
         Filtre curente: <strong><?php echo h($filterDescription); ?></strong> | 
@@ -122,14 +124,15 @@ ob_start();
     <?php if (empty($activities)): ?>
         <div class="empty-state">Nicio activitate găsită care să corespundă filtrelor selectate.</div>
     <?php else: ?>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <div class="table-responsive">
+        <table class="table table-striped table-hover" style="margin-top: 20px;">
             <thead>
                 <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
                     <th style="padding: 12px; text-align: left;">Titlu</th>
                     <th style="padding: 12px; text-align: left;">Departament</th>
-                    <th style="padding: 12px; text-align: left;">Status</th>
-                    <th style="padding: 12px; text-align: left;">Creată de</th>
-                    <th style="padding: 12px; text-align: left;">Creată</th>
+                    <th style="padding: 12px; text-align: left; min-width: 120px;">Status</th>
+                    <th style="padding: 12px; text-align: left; min-width: 140px;">Creată de</th>
+                    <th style="padding: 12px; text-align: left; min-width: 160px;">Creată</th>
                 </tr>
             </thead>
             <tbody>
@@ -137,22 +140,23 @@ ob_start();
                     <tr style="border-bottom: 1px solid #eee;">
                         <td style="padding: 12px;"><?php echo h($activity['title']); ?></td>
                         <td style="padding: 12px;"><?php echo h($activity['department_name'] ?? 'N/A'); ?></td>
-                        <td style="padding: 12px;">
+                        <td style="padding: 12px;" class="text-nowrap">
                             <span class="activity-status status-<?php echo h($activity['status']); ?>">
                                 <?php echo h(translateStatus($activity['status'])); ?>
                             </span>
                         </td>
-                        <td style="padding: 12px;">
+                        <td style="padding: 12px;" class="text-nowrap">
                             <?php 
                             $creator = trim(($activity['first_name'] ?? '') . ' ' . ($activity['last_name'] ?? ''));
                             echo h($creator ?: $activity['created_by_username'] ?? 'Necunoscut');
                             ?>
                         </td>
-                        <td style="padding: 12px;"><?php echo formatDateTime($activity['created_at']); ?></td>
+                        <td style="padding: 12px;" class="text-nowrap"><?php echo formatDateTime($activity['created_at']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
         <?php if (count($activities) > 10): ?>
             <p style="margin-top: 15px; color: #666; font-size: 13px;">
                 Se afișează primele 10 din <?php echo count($activities); ?> activități. Folosește exportul pentru a vedea toate rezultatele.

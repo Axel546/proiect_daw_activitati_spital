@@ -142,7 +142,8 @@ ob_start();
 <?php else: ?>
     <div class="form-section">
         <h2>Toate Mesajele (<?php echo count($messages); ?>)</h2>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <div class="table-responsive">
+        <table class="table table-striped table-hover" style="margin-top: 20px;">
             <thead>
                 <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
                     <th style="padding: 12px; text-align: left;">Data</th>
@@ -185,12 +186,13 @@ ob_start();
                             <?php endif; ?>
                         </td>
                         <td style="padding: 12px;">
-                            <a href="messages.php?id=<?php echo $msg['id']; ?>" class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px;">Vezi</a>
+                            <a href="messages.php?id=<?php echo $msg['id']; ?>" class="btn btn-secondary btn-sm">Vezi</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     </div>
 <?php endif; ?>
 

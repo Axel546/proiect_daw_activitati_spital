@@ -120,37 +120,41 @@ ob_start();
 <div class="form-section">
     <form method="POST">
         <input type="hidden" name="csrf_token" value="<?php echo h(generateCsrfToken()); ?>">
-        <div class="form-group">
-            <label for="first_name">Prenume *</label>
-            <input type="text" id="first_name" name="first_name" required maxlength="50" 
-                   value="<?php echo h($_POST['first_name'] ?? ''); ?>">
+        <div class="row g-3">
+            <div class="col-12 col-md-6">
+                <label for="first_name" class="form-label">Prenume *</label>
+                <input type="text" id="first_name" name="first_name" required maxlength="50" 
+                       value="<?php echo h($_POST['first_name'] ?? ''); ?>" class="form-control">
+            </div>
+            
+            <div class="col-12 col-md-6">
+                <label for="last_name" class="form-label">Nume *</label>
+                <input type="text" id="last_name" name="last_name" required maxlength="50" 
+                       value="<?php echo h($_POST['last_name'] ?? ''); ?>" class="form-control">
+            </div>
+            
+            <div class="col-12">
+                <label for="email" class="form-label">Email *</label>
+                <input type="email" id="email" name="email" required maxlength="100" 
+                       value="<?php echo h($_POST['email'] ?? ''); ?>" class="form-control">
+            </div>
+            
+            <div class="col-12 col-md-6">
+                <label for="password" class="form-label">Parolă *</label>
+                <input type="password" id="password" name="password" required minlength="6" class="form-control">
+                <small class="form-text text-muted">Minimum 6 caractere</small>
+            </div>
+            
+            <div class="col-12 col-md-6">
+                <label for="confirm_password" class="form-label">Confirmă Parola *</label>
+                <input type="password" id="confirm_password" name="confirm_password" required minlength="6" class="form-control">
+            </div>
         </div>
         
-        <div class="form-group">
-            <label for="last_name">Nume *</label>
-            <input type="text" id="last_name" name="last_name" required maxlength="50" 
-                   value="<?php echo h($_POST['last_name'] ?? ''); ?>">
+        <div class="d-flex flex-wrap gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">Înregistrare</button>
+            <a href="login.php" class="btn btn-secondary">Ai deja cont? Autentifică-te</a>
         </div>
-        
-        <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required maxlength="100" 
-                   value="<?php echo h($_POST['email'] ?? ''); ?>">
-        </div>
-        
-        <div class="form-group">
-            <label for="password">Parolă *</label>
-            <input type="password" id="password" name="password" required minlength="6">
-            <small style="color: #666; font-size: 12px;">Minimum 6 caractere</small>
-        </div>
-        
-        <div class="form-group">
-            <label for="confirm_password">Confirmă Parola *</label>
-            <input type="password" id="confirm_password" name="confirm_password" required minlength="6">
-        </div>
-        
-        <button type="submit">Înregistrare</button>
-        <a href="login.php" class="btn btn-secondary" style="margin-left: 10px;">Ai deja cont? Autentifică-te</a>
     </form>
 </div>
 <?php

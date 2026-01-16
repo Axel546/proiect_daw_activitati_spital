@@ -85,7 +85,8 @@ ob_start();
     <?php if (empty($topPages)): ?>
         <div class="empty-state">Nicio vizualizare de pagină înregistrată încă.</div>
     <?php else: ?>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <div class="table-responsive">
+        <table class="table table-striped table-hover" style="margin-top: 20px;">
             <thead>
                 <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
                     <th style="padding: 12px; text-align: left;">Rank</th>
@@ -113,6 +114,7 @@ ob_start();
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     <?php endif; ?>
 </div>
 

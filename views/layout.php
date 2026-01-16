@@ -24,8 +24,10 @@ if (strpos($currentFile, '/activities/') !== false || strpos($currentFile, '/rep
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo h($pageTitle); ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -50,6 +52,16 @@ if (strpos($currentFile, '/activities/') !== false || strpos($currentFile, '/rep
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .user-info {
+                font-size: 12px;
+            }
         }
         .nav-brand {
             font-size: 20px;
@@ -82,7 +94,13 @@ if (strpos($currentFile, '/activities/') !== false || strpos($currentFile, '/rep
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 30px;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
         }
         h1 {
             color: #2c3e50;

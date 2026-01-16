@@ -181,32 +181,36 @@ ob_start();
                 <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
             </div>
             
-            <div class="form-group">
-                <label for="name">Nume *</label>
-                <input type="text" id="name" name="name" required maxlength="120" 
-                       value="<?php echo h($_POST['name'] ?? ($isLoggedIn ? ($currentUser['first_name'] . ' ' . $currentUser['last_name']) : '')); ?>">
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <label for="name" class="form-label">Nume *</label>
+                    <input type="text" id="name" name="name" required maxlength="120" 
+                           value="<?php echo h($_POST['name'] ?? ($isLoggedIn ? ($currentUser['first_name'] . ' ' . $currentUser['last_name']) : '')); ?>" class="form-control">
+                </div>
+                
+                <div class="col-12 col-md-6">
+                    <label for="email" class="form-label">Email *</label>
+                    <input type="email" id="email" name="email" required maxlength="190" 
+                           value="<?php echo h($_POST['email'] ?? ($isLoggedIn ? ($currentUser['email'] ?? '') : '')); ?>" class="form-control">
+                </div>
+                
+                <div class="col-12">
+                    <label for="subject" class="form-label">Subiect *</label>
+                    <input type="text" id="subject" name="subject" required maxlength="190" 
+                           value="<?php echo h($_POST['subject'] ?? ''); ?>" class="form-control">
+                </div>
+                
+                <div class="col-12">
+                    <label for="message" class="form-label">Mesaj *</label>
+                    <textarea id="message" name="message" required maxlength="10000" rows="8" class="form-control"><?php echo h($_POST['message'] ?? ''); ?></textarea>
+                    <small class="form-text text-muted">Maximum 10.000 caractere</small>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required maxlength="190" 
-                       value="<?php echo h($_POST['email'] ?? ($isLoggedIn ? ($currentUser['email'] ?? '') : '')); ?>">
+            <div class="d-flex flex-wrap gap-2 mt-3">
+                <button type="submit" class="btn btn-primary">Trimite Mesaj</button>
+                <a href="index.php" class="btn btn-secondary">Anulează</a>
             </div>
-            
-            <div class="form-group">
-                <label for="subject">Subiect *</label>
-                <input type="text" id="subject" name="subject" required maxlength="190" 
-                       value="<?php echo h($_POST['subject'] ?? ''); ?>">
-            </div>
-            
-            <div class="form-group">
-                <label for="message">Mesaj *</label>
-                <textarea id="message" name="message" required maxlength="10000" rows="8"><?php echo h($_POST['message'] ?? ''); ?></textarea>
-                <small style="color: #666; font-size: 12px;">Maximum 10.000 caractere</small>
-            </div>
-            
-            <button type="submit">Trimite Mesaj</button>
-            <a href="index.php" class="btn btn-secondary" style="margin-left: 10px;">Anulează</a>
         </form>
     </div>
 <?php endif; ?>

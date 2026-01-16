@@ -79,14 +79,15 @@ ob_start();
     <?php if (!empty($recent_activities)): ?>
         <div class="form-section">
             <h2>Activități Recente</h2>
-            <table style="width: 100%; border-collapse: collapse;">
+            <div class="table-responsive">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
                         <th style="padding: 12px; text-align: left;">Titlu</th>
                         <th style="padding: 12px; text-align: left;">Departament</th>
-                        <th style="padding: 12px; text-align: left;">Status</th>
-                        <th style="padding: 12px; text-align: left;">Creată</th>
-                        <th style="padding: 12px; text-align: left;">Acțiune</th>
+                        <th style="padding: 12px; text-align: left; min-width: 120px;">Status</th>
+                        <th style="padding: 12px; text-align: left; min-width: 160px;">Creată</th>
+                        <th style="padding: 12px; text-align: left; min-width: 100px;">Acțiune</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,19 +99,20 @@ ob_start();
                                 </a>
                             </td>
                             <td style="padding: 12px;"><?php echo h($activity['department_name'] ?? 'N/A'); ?></td>
-                            <td style="padding: 12px;">
+                            <td style="padding: 12px;" class="text-nowrap">
                                 <span class="activity-status status-<?php echo h($activity['status']); ?>">
                                     <?php echo h(translateStatus($activity['status'])); ?>
                                 </span>
                             </td>
-                            <td style="padding: 12px;"><?php echo formatDateTime($activity['created_at']); ?></td>
-                            <td style="padding: 12px;">
-                                <a href="activities/show.php?id=<?php echo $activity['id']; ?>" class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px;">Vezi</a>
+                            <td style="padding: 12px;" class="text-nowrap"><?php echo formatDateTime($activity['created_at']); ?></td>
+                            <td style="padding: 12px;" class="text-nowrap">
+                                <a href="activities/show.php?id=<?php echo $activity['id']; ?>" class="btn btn-secondary btn-sm">Vezi</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
             <div style="margin-top: 15px; text-align: center;">
                 <a href="activities/index.php" class="btn btn-secondary">Vezi Toate Activitățile →</a>
             </div>

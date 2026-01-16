@@ -67,21 +67,25 @@ ob_start();
 <?php endif; ?>
 
 <div class="form-section">
-            <form method="POST">
-                <?php echo csrfField(); ?>
-                <div class="form-group">
-                    <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required 
-                   value="<?php echo h($_POST['email'] ?? ''); ?>">
+    <form method="POST">
+        <?php echo csrfField(); ?>
+        <div class="row g-3">
+            <div class="col-12">
+                <label for="email" class="form-label">Email *</label>
+                <input type="email" id="email" name="email" required 
+                       value="<?php echo h($_POST['email'] ?? ''); ?>" class="form-control">
+            </div>
+            
+            <div class="col-12">
+                <label for="password" class="form-label">Parolă *</label>
+                <input type="password" id="password" name="password" required class="form-control">
+            </div>
         </div>
         
-        <div class="form-group">
-            <label for="password">Parolă *</label>
-            <input type="password" id="password" name="password" required>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">Autentificare</button>
+            <a href="register.php" class="btn btn-secondary">Nu ai cont? Înregistrează-te</a>
         </div>
-        
-        <button type="submit">Autentificare</button>
-        <a href="register.php" class="btn btn-secondary" style="margin-left: 10px;">Nu ai cont? Înregistrează-te</a>
     </form>
 </div>
 <?php
